@@ -16,7 +16,7 @@ jobs:
     - name : install github cli
       shell: pwsh
       run: |
-         winget install --id GitHub.cli -e --source winget
+         choco install gh -y
          gh --version
 
     - name: Generate SBOM using GitHub API
