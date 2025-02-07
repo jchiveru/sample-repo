@@ -10,14 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Newtonsoft.Json for JSON handling -->
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-
-    <!-- Serilog for logging -->
-    <PackageReference Include="Serilog" Version="2.11.0" />
-
-    <!-- Serilog sinks for writing to the console -->
-    <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+   
 
     <!-- FluentValidation for validation -->
     <PackageReference Include="FluentValidation" Version="10.3.4" />
