@@ -3,7 +3,7 @@ name: Generate SBOM for Pull Request
 on:
   push:
     branches:
-      - main
+      - test-sample
 
 jobs:
   generate-sbom:
