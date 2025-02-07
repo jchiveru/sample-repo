@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>HelloWorldApp</RootNamespace>
+    <AssemblyName>HelloWorldApp</AssemblyName>
+    <StartupObject>HelloWorldApp.Program</StartupObject> 
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Newtonsoft.Json for JSON handling -->
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+
+    <!-- Serilog for logging -->
+    <PackageReference Include="Serilog" Version="2.11.0" />
+
+    <!-- Serilog sinks for writing to the console -->
+    <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+
+    <!-- FluentValidation for validation -->
+    <PackageReference Include="FluentValidation" Version="10.3.4" />
+
+    <!-- AutoMapper for object-to-object mapping -->
+    <PackageReference Include="AutoMapper" Version="12.0.0" />
+
+    <!-- NUnit for unit testing (useful for test-driven development) -->
+    <PackageReference Include="NUnit" Version="3.13.3" />
+    
+    <!-- NUnit test adapter for running tests within Visual Studio -->
+    <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
+    
+    <!-- Hangfire for background job processing -->
+    <PackageReference Include="Hangfire" Version="1.7.20" />
+    
+    <!-- Microsoft.NET.Test.Sdk for test SDK compatibility -->
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+  </ItemGroup>
+
+</Project>
