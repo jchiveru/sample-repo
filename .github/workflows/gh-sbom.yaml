@@ -1,33 +1,38 @@
-name: Generate SBOM for Pull Request
+name: "Download SBOM from GitHub"
+description: "Download the SBOM from GitHub API"
+author: "valpinkman"
 
 on:
-  push:
-    branches:
-      - main
-
+  push
+  
 jobs:
-  generate-sbom:
-    runs-on: ubuntu-latest 
+  download_sbom:
+    runs-on: windows-latest  # Use Windows runner
+
     steps:
-    - name: Checkout PR Branch
-      uses: actions/checkout@v3
-      with:
-        ref: ${{ github.head_ref }}
-    - name: Set GH_TOKEN for GitHub CLI Authentication
-      run: |
-        echo "GH_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
+    # Checkout the repository code
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-    - name: Generate SBOM using GitHub API
+  
+    - name: Download SBOM
+      shell: pwsh
+      env:
+        GH_TOKEN: ${{ github.token }}  # Use GitHub's token directly from the environment variable
+        REPO_OWNER: ${{ github.repository_owner }}  # Directly access the repository owner
+        REPO_NAME: ${{ github.repository }}  # Directly access the repository name
       run: |
-        # Fetch the SBOM from the Dependency Graph for the current PR branch
-        gh api \
-          -H "Accept: application/vnd.github+json" \
-          -H "X-GitHub-Api-Version: 2022-11-28" \
-          /repos/${{ github.repository }}/dependency-graph/sbom > sbom.json
+        Write-Host "Downloading SBOM for repository: $env:REPO_OWNER\$env:REPO_NAME"
+        
+        # Use the GitHub CLI to download the SBOM
+        gh api `
+          -H "Accept: application/vnd.github+json" `
+          -H "X-GitHub-Api-Version: 2022-11-28" `
+          /repos/$env:REPO_OWNER/$env:REPO_NAME/dependency-graph/sbom `
+          | Out-File -FilePath sbom.json
 
-    - name: Upload SBOM as Artifact
+    - name: Upload SBOM
       uses: actions/upload-artifact@v4
       with:
-        name: sbom-json
+        name: sbom
         path: sbom.json
-
