@@ -13,6 +13,10 @@ jobs:
       uses: actions/checkout@v3
       with:
         ref: ${{ github.head_ref }}
+    - name: Set GH_TOKEN for GitHub CLI Authentication
+      run: |
+        echo "GH_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
+
     - name: Generate SBOM using GitHub API
       run: |
         # Fetch the SBOM from the Dependency Graph for the current PR branch
