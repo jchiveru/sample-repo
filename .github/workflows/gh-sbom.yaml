@@ -7,7 +7,7 @@ on:
 
 jobs:
   generate-sbom:
-    runs-on: ubuntu-latest 
+    runs-on: windows-latest 
     steps:
     - name: Checkout PR Branch
       uses: actions/checkout@v3
