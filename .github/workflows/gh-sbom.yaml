@@ -21,11 +21,12 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Make sure to use a secret GitHub token
         run: |
           # Fetch the SBOM from the Dependency Graph for the current PR branch
-          gh api `
-            --header "Accept: application/vnd.github+json" `
-            --header "X-GitHub-Api-Version: 2022-11-28" `
-            "/repos/${{ github.repository_owner }}/${{ github.repository }}/dependency-graph/sbom" `
-            | Out-File -FilePath sbom.json
+          
+          curl -H "Accept: application/vnd.github+json" ^
+               -H "X-GitHub-Api-Version: 2022-11-28" ^
+               https://api.github.com/repos/${{ github.repository_owner }}/${{ github.repository }}/dependency-graph/sbom ^
+               -o sbom.json
+
 
       - name: Upload SBOM as Artifact
         uses: actions/upload-artifact@v4
