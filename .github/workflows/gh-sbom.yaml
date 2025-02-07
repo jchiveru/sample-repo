@@ -1,1 +1,47 @@
 
+
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+  
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+     
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+  
+
+      - name: Upload Metadata as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-metadata
+          path: metadata.json
