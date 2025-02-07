@@ -1,6 +1,5 @@
 name: "Download SBOM from GitHub"
-description: "Download the SBOM from GitHub API"
-author: "valpinkman"
+
 
 on:
   push
