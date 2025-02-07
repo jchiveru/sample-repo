@@ -1,47 +1,23 @@
-
-
-name: CI
+name: Generate SBOM for Pull Request
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
-  workflow_dispatch:
+    branches:
+      - main  =
 
 jobs:
-  build:
-  
-    runs-on: windows-latest
-
+  generate-sbom:
+    runs-on: ubuntu-latest 
     steps:
-      - uses: actions/checkout@v4
+    - name: Checkout PR Branch
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ github.head_ref }}
+    - name: Generate SBOM using GitHub API
+      run: |
+        # Fetch the SBOM from the Dependency Graph for the current PR branch
+        gh api \
+          -H "Accept: application/vnd.github+json" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          /repos/${{ github.repository }}/dependency-graph/sbom > sbom.json
 
-     
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v2
-        with:
-          dotnet-version: '9.0.x'
-
-      - name: Restore dependencies
-        run: dotnet restore
-
-      - name: Build
-        run: dotnet build --configuration Release --no-restore
-
-  
-
-      - name: Upload Metadata as Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-metadata
-          path: metadata.json
