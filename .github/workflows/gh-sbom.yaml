@@ -15,8 +15,7 @@ jobs:
 
       - name: Generate SBOM using GitHub API
         shell: pwsh
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Make sure to use a secret GitHub token
+          # Make sure to use a secret GitHub token
         run: |
           $uri = "https://api.github.com/repos/${{ github.repository_owner }}/${{ github.repository }}/dependency-graph/sbom"
           $headers = @{
